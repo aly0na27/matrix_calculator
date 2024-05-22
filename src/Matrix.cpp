@@ -66,7 +66,7 @@ MatrixCalculator MatrixCalculator::operator/( MatrixCalculator& other) const {
     }
 
     if (data[0].size() != other.data.size()) {
-         throw std::runtime_error("Операция деления не выполнима");
+        throw std::runtime_error("Операция деления не выполнима");
     }
 
     MatrixCalculator inverse_other_matrix = other.inverse();
@@ -127,7 +127,7 @@ MatrixCalculator MatrixCalculator::pow(int power) {
 
 double MatrixCalculator::determinant() {
     if (data.size() == 0) {
-        std::runtime_error("Матрица пустая");
+        throw std::runtime_error("Матрица пустая");
     }
 
     if (data.size() != data[0].size()) {
@@ -144,21 +144,22 @@ double MatrixCalculator::determinant() {
 
 MatrixCalculator MatrixCalculator::transpose() {
     if (data.size() == 0) {
-        MatrixCalculator matrix(data);
-        return matrix;
+        throw std::runtime_error("Матрица пустая");
     }
     int rows = data.size();
     int cols = data[0].size();
 
-    std::vector<std::vector<double>> transposed(cols, std::vector<double>(rows, 0));
+    std::vector<std::vector<double>> transposed(cols, std::vector<double>(rows, 0.0));
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            transposed[j][i] = data[i][j];
+            transposed[j][i] = (double)data[i][j];
         }
     }
 
-    return MatrixCalculator(transposed);
+    MatrixCalculator res(transposed);
+//    res.print();
+    return res;
 
 }
 
@@ -214,6 +215,10 @@ MatrixCalculator MatrixCalculator::inverse() {
     double det = determinant();
     if (det == 0) {
         throw std::runtime_error("Inverse does not exist as determinant is zero.");
+    }
+    if (n == 1) {
+        MatrixCalculator res({{1.0 / data[0][0]}});
+        return res;
     }
     std::vector<std::vector<double>> adjoint(n, std::vector<double>(n, 0.0));
     std::vector<std::vector<double>> inverseMatrix(n, std::vector<double>(n, 0.0));
