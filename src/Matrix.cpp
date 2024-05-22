@@ -78,7 +78,7 @@ MatrixCalculator MatrixCalculator::operator/( MatrixCalculator& other) const {
 
 bool MatrixCalculator::operator==(const MatrixCalculator &other) const {
     if (data.size() == 0 || other.data.size() == 0) {
-        std::runtime_error("Матрица пустая");
+        throw std::runtime_error("Матрица пустая");
     }
     if (data.size() != other.data.size() || data[0].size() != other.data[0].size()) {
         return false; // Размеры матриц не совпадают

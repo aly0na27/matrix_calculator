@@ -210,10 +210,10 @@ TEST(MatrixCalculatorTest, DivisionTest) {
     MatrixCalculator matrix8(input8);
     MatrixCalculator matrix9(input9);
     MatrixCalculator matrix10(input10);
-    MatrixCalculator matrix11(input10);
-    MatrixCalculator matrix12(input10);
-    MatrixCalculator matrix13(input10);
-    MatrixCalculator matrix14(input10);
+    MatrixCalculator matrix11(input11);
+    MatrixCalculator matrix12(input12);
+    MatrixCalculator matrix13(input13);
+    MatrixCalculator matrix14(input14);
 
 
     MatrixCalculator sum1 = matrix1 / matrix2;
@@ -239,6 +239,89 @@ TEST(MatrixCalculatorTest, DivisionTest) {
     ASSERT_THROW(matrix9 / matrix10, std::runtime_error);
     ASSERT_THROW(matrix11 / matrix12, std::runtime_error);
     ASSERT_THROW(matrix13 / matrix14, std::runtime_error);
+}
+
+TEST(MatrixCalculatorTest, EqualTest) {
+    std::vector<std::vector<double>> input1 = {{1, 2},
+                                               {3, 4}};
+    std::vector<std::vector<double>> input2 = {{1, 2},
+                                               {3, 4}};
+
+    std::vector<std::vector<double>> input3 = {{1.3, -7.923},
+                                               {3.8, 4.12}};
+    std::vector<std::vector<double>> input4 = {{1.3, -7.923},
+                                               {3.8, 4.123}};
+
+    std::vector<std::vector<double>> input5 = {{1.3, -7.923},
+                                               {3.8, 4.12},
+                                               {9,   1.2}};
+    std::vector<std::vector<double>> input6 = {{5.26, 6.89},
+                                               {7.32, 8.98}};
+
+    std::vector<std::vector<double>> input7 = {{1, 2},
+                                               {3, 4}};
+    std::vector<std::vector<double>> input8 = {{5,  6,  7},
+                                               {7,  8,  9},
+                                               {10, 11, 12}};
+
+    std::vector<std::vector<double>> input9 = {{5,  6,  7},
+                                               {7,  8,  9},
+                                               {10, 11, 12}};;
+    std::vector<std::vector<double>> input10 = {{5,  6,  7},
+                                                {7,  8,  9},
+                                                {10, 11, 12}};
+
+    std::vector<std::vector<double>> input11 = {};
+    std::vector<std::vector<double>> input12 = {{5,  6,  7},
+                                                {7,  8,  9},
+                                                {10, 11, 12}};
+
+    std::vector<std::vector<double>> input13 = {{5,  6,  7},
+                                                {7,  8,  9},
+                                                {10, 11, 12}};
+    std::vector<std::vector<double>> input14 = {{5,  6,  7},
+                                                {7,  8,  9},
+                                                {10, 11, 12.0007}};
+
+    MatrixCalculator matrix1(input1);
+    MatrixCalculator matrix2(input2);
+    MatrixCalculator matrix3(input3);
+    MatrixCalculator matrix4(input4);
+    MatrixCalculator matrix5(input5);
+    MatrixCalculator matrix6(input6);
+    MatrixCalculator matrix7(input7);
+    MatrixCalculator matrix8(input8);
+    MatrixCalculator matrix9(input9);
+    MatrixCalculator matrix10(input10);
+    MatrixCalculator matrix11(input11);
+    MatrixCalculator matrix12(input12);
+    MatrixCalculator matrix13(input13);
+    MatrixCalculator matrix14(input14);
+
+
+    MatrixCalculator sum1 = matrix1 / matrix2;
+    MatrixCalculator sum2 = matrix3 / matrix4;
+    MatrixCalculator sum3 = matrix5 / matrix6;
+
+
+    std::vector<std::vector<double>> expected1 = {{3, -2},
+                                                  {2, -1}};
+    std::vector<std::vector<double>> expected2 = {{-21.771987, 15.82249},
+                                                  {-1.23925,   1.40962}};
+    std::vector<std::vector<double>> expected3 = {{-21.771987, 15.82249},
+                                                  {-1.23925,   1.40962},
+                                                  {-22.51125,  17.405625}};
+    MatrixCalculator expectedSum1(expected1);
+    MatrixCalculator expectedSum2(expected2);
+    MatrixCalculator expectedSum3(expected3);
+
+    EXPECT_EQ(matrix1 == matrix2, true);
+    EXPECT_EQ(matrix3 == matrix4, false);
+    EXPECT_EQ(matrix5 == matrix6, false);
+    EXPECT_EQ(matrix7 == matrix8, false);
+    EXPECT_EQ(matrix9 == matrix10, true);
+    EXPECT_EQ(matrix13 == matrix14, false);
+    ASSERT_THROW(matrix11 == matrix12, std::runtime_error);
 }
 
 TEST(MatrixCalculatorTest, DeterminantTest) {
